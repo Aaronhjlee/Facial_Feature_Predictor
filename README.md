@@ -90,6 +90,8 @@ Below is a detailed look into the architecture employed in the popular [VGG16](h
 
 Through many rounds of testing, similarly to VGG16's architecture, I went with a similar approach across all 3 [Convolutional Neural Networks](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53) (CNN) I designed, tuned, and trained. 
 
+![](images/gender_summary.png)
+
 Once our architecture is set, we now train our models and come up with an accuracy and validation score over a set amount of [epochs](https://www.quora.com/What-is-an-epoch-in-deep-learning) for each corresponding model!
 
 ![](/images/all_train.png)
