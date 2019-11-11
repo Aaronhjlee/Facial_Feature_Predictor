@@ -1,71 +1,42 @@
 from datetime import datetime
-import numpy as np
+import cv2
+import tensorflow
+import keras
 import pandas as pd
-from PIL import Image
-
+import numpy as np
+from keras.datasets import mnist
+from keras.models import Model, Sequential
+from keras.layers import Dense, Conv2D, Dropout, BatchNormalization, Input, Reshape, Flatten, Deconvolution2D, Conv2DTranspose, MaxPooling2D, UpSampling2D
+from keras.layers.advanced_activations import LeakyReLU
+from keras.optimizers import adam
 import tensorflow as tf
 from tensorflow.keras import layers
 keras = tf.keras
-AUTOTUNE = tf.data.experimental.AUTOTUNE ## tf.data transformation parameters
+AUTOTUNE = tf.data.experimental.AUTOTUNE
+from keras.callbacks import TensorBoard
+from livelossplot.keras import PlotLossesCallback
 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
+
+import datetime
+from src.cnn_gender import get_and_clean_data
 
 import warnings
 warnings.filterwarnings("ignore")
 
 
-class MaleAttract:
-
-    def __init__(self, X_train, X_test, y_train, y_test):
-        self.X_train = X_train
-        self.X_test = X_test
-        self.y_train = y_train
-        self.y_test = y_test
-
-    def build_model(self):
-        # layer 1
-        model = keras.models.Sequential([
-        keras.layers.Conv2D(16, (5, 5), activation='relu',
-                        input_shape=(218, 178, 3), padding = "same"),
-        keras.layers.MaxPooling2D((2, 2))])
-        # layer 2
-        model.add(keras.layers.Conv2D(32, (5, 5), activation = 'relu', padding = 'same'))
-        model.add(keras.layers.MaxPool2D(2,2))
-        #layer 3
-        model.add(keras.layers.Flatten())
-        model.add(keras.layers.Dense(128, activation = "relu"))
-        model.add(keras.layers.Dense(2,  activation = "softmax"))
-        # compile
-        model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-        return model
-
-
-def jpg_image_to_array(image_path):
-    """
-    Loads JPEG image into 3D Numpy array of shape 
-    (width, height, channels)
-    """
-    with Image.open(image_path) as image:         
-        im_arr = np.fromstring(image.tobytes(), dtype=np.uint8)
-        im_arr = im_arr.reshape((image.size[1], image.size[0], 3))                                   
-        return im_arr
-
-def get_and_clean_data():
-    # The number of celeb images: 202599
-    n_celeb_images = 100
-    # The format specification here left pads zeros on the number: 000006.
-    celeb_filenames = ['data/img_align_celeba/{:06d}.jpg'.format(i)
-                        for i in range(1, n_celeb_images + 1)]
-    full_images=[]
-    for i in celeb_filenames:
-        full_images.append(jpg_image_to_array(i))
-
-    df_labels = pd.read_csv('data/list_attr_celeba.csv')
-    df_labels.columns = map(str.lower, df_labels.columns)
-    df_labels.replace([-1], 0, inplace=True)
-    return full_images, df_labels
+def get_images():
+    full_images, df = get_and_clean_data()
+    img_list = np.asarray(full_images[:4000])
+    img_list.shape
+    temp=[]
+    for i in img_list:
+        temp.append(cv2.resize(i, (200,200)))
+    X_train, X_test, y_train, y_test = train_test_split(np.asarray(temp),
+                                                       df.male[:4000] ,shuffle=False)
+    X_train = X_train.astype('float32') / 255
+    X_test = X_test.astype('float32') / 255    
+    return X_train, X_test, y_train, y_test, np.asarray(temp), df[:4000]
 
 
 if __name__ == "__main__":
