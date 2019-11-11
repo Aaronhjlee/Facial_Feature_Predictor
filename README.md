@@ -15,6 +15,7 @@
 * [Exploratory Data Analysis](#exploratory-data-analysis)
 * [Machine Learning](#machine-learning)
 * [Deep Learning](#deep-learning)
+* [Trasfer Learning](#transfer-learning)
 * [Conclusion](#conclusion)
 * [Future Analysis](#future-analysis)
 * [Tools Used](#tools-used)
@@ -61,7 +62,7 @@ What facial features determine an attractive headshot?
     * FEMALES ~32% attractive
   ![](images/male_attractive_pie.png) 
 
-  
+
   4. Example headshots
 ![](images/female_example.png)    ![](images/male_example.png) 
 
@@ -96,6 +97,10 @@ Once our architecture is set, we now train our models and come up with an accura
 With a small subset of data, we can achieve a fairly high training score. With more data coming in through [transfer learning](https://machinelearningmastery.com/transfer-learning-for-deep-learning/), we should have a better more that is not overfitting to the original training data.
 
 ## Transfer Learning
+
+Transfer learning is the act of taking a model with it's architecture and the weights already calculated and building on that in order to produce a model more tailored to a different dataset. 
+
+The model is currently training...
 
 ## Conclusion
 
