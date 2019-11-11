@@ -55,7 +55,8 @@ What facial features determine an attractive headshot?
   1. Dataset: 200000+ faces with 40 attributes and 10000 being unique from [The Chinese University of Hong Kong](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
   2. Some attributes include: male, attractive, oval face, big nose, 5 o'clock shadow, big lips, rosy cheeks, heavy makeup, etc. 
   3. ~60% female and ~40% male  |  ~48% attractive and 62% not attractive
-    * MAlES: ~27% attractive
+  
+    * MALES: ~27% attractive
     * FEMALES ~32% attractive
   ![](images/male_attractive_pie.png) 
   4. Example headshots
