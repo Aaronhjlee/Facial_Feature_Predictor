@@ -83,11 +83,36 @@ Although these results are logical and may seem definitive, when we submit a pic
 Below is a detailed look into the architecture employed in the popular [VGG16](https://neurohive.io/en/popular-networks/vgg16/) image classification and detection model. 
 ![](images/vgg16_arch.png)
 
+Through many rounds of testing, similarly to VGG16's architecture, I went with a similar approach across all 3 [Convolutional Neural Networks](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53) (CNN) I designed, tuned, and trained. 
 
+Once our architecture is set, we now train our models and come up with an accuracy and validation score over a set amount of [epochs](https://www.quora.com/What-is-an-epoch-in-deep-learning) for each corresponding model!
+
+![](/images/all_train.png)
+
+With a small subset of data, we can achieve a fairly high training score. With more data coming in through [transfer learning](https://machinelearningmastery.com/transfer-learning-for-deep-learning/), we should have a better more that is not overfitting to the original training data.
+
+## Transfer Learning
 
 ## Conclusion
 
+* Gender is the easiest to classify amongst the three categories
+* CNN are hard to tune. 
+  * It can be easily overfitted and/or predisposed to guessing the average in order to stabilize log loss.
+  * Takes a lot of samples to tune properly
+  * Computationally heavy on a singular machine (Multiple times running out of memory)
+
+## Business Application
+
+* With the vast number of photos taken at big events (weddings, concerts, etc.), it ease the [culling](https://fstoppers.com/education/beginners-guide-culling-and-why-we-do-it-89324) process by scoring only the best looking pictures where the individual looks most attractive.
+* With images being the focal point of social media nowadays, any company from eCommerce to advertising, needs a system to process user pictures to understand what products are being worn/used.
+* In the future this could be expanded to a system that can label the images with keywords for more extensive data collection where a user does not write a caption or uses hashtags.
+
 ## Future Analysis
+
+* Train on a larger and more diverse dataset and in the cloud
+* Expand to predict on different facial attributes
+* Accept batches of consumer images
+* Build out a pipeline to crop pictures and preprocess
 
 ## Tools Used
 

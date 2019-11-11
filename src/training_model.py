@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.models import Sequential
-from keras.layers import Dense, Conv2D, Dropout, BatchNormalization, Input, Reshape, Flatten, Deconvolution2D, Conv2DTranspose, MaxPooling2D, UpSampling2D
+from keras.layers import Dense, Conv2D, Dropout, BatchNormalization, Input, Reshape, Flatten, MaxPooling2D
 from keras.layers.advanced_activations import LeakyReLU
 from keras.optimizers import adam
 import tensorflow as tf
@@ -53,11 +53,12 @@ def train_gender_model(X_train, X_test, y_train, y_test):
             # callbacks=[PlotLossesCallback()],
             verbose=0)
     print('Finished training and saved gender model!')
-    saved_model_path = "../saved_models/gender_11_10.h5"
+    saved_model_path = "../saved_models/gender1_11_10.h5"
     cnn_g.save(saved_model_path)
 
 
 def train_male_attraction_model(Xm_train, Xm_test, ym_train, ym_test):
+    print('Training male attraction model! (might take a while)')
     print('Training gender model! (might take a while)')
     cnn_m = Sequential()
     input_img = (218, 178, 3)
@@ -72,11 +73,13 @@ def train_male_attraction_model(Xm_train, Xm_test, ym_train, ym_test):
     cnn_m.add(Conv2D(4, (3, 3), activation='relu', padding='same'))
     cnn_m.add(Conv2D(4, (3, 3), activation='relu', padding='same'))
     cnn_m.add(MaxPooling2D((2, 2), strides=(2,2)))
+    # layer 3
+    cnn_m.add(Conv2D(8, (3, 3), activation='relu', padding='same'))
+    cnn_m.add(Conv2D(8, (3, 3), activation='relu', padding='same'))
+    cnn_m.add(MaxPooling2D((2, 2), strides=(2,2)))
     # flatten and add 3 FC layers
     cnn_m.add(Flatten())
     cnn_m.add(Dense(64, activation='relu'))
-    cnn_m.add(Dropout(0.5))
-    cnn_m.add(Dense(32, activation='relu'))
     cnn_m.add(Dropout(0.5))
     cnn_m.add(Dense(1, activation='sigmoid'))
 
@@ -89,12 +92,12 @@ def train_male_attraction_model(Xm_train, Xm_test, ym_train, ym_test):
             # callbacks=[PlotLossesCallback()],
             verbose=0)
     print('Finished training and saved male attraction model!')
-    saved_model_path = "../saved_models/male_att_11_10.h5"
+    saved_model_path = "../saved_models/male1_att_11_10.h5"
     cnn_m.save(saved_model_path)
     
 
 def train_female_attraction_model(Xf_train, Xf_test, yf_train, yf_test):
-    print('Training gender model! (might take a while)')
+    print('Training female attraction model! (might take a while)')
     cnn_f = Sequential()
     input_img = (218, 178, 3)
     batch_size=32
@@ -127,12 +130,12 @@ def train_female_attraction_model(Xf_train, Xf_test, yf_train, yf_test):
             # callbacks=[PlotLossesCallback()],
             verbose=0)
     print('Finished training and saved female attraction model!')
-    saved_model_path = "../saved_models/female_att_11_10.h5"
+    saved_model_path = "../saved_models/female1_att_11_10.h5"
     cnn_f.save(saved_model_path)
 
 if __name__ == "__main__":
     start = 0
-    n = 5000
+    n = 4000
     print ('running {} data points.'.format(n))
     X_train, X_test, y_train, y_test = get_images(start,n)
     Xm_train, Xm_test, ym_train, ym_test, Xf_train, Xf_test, yf_train, yf_test = get_images(start,n, split=True)

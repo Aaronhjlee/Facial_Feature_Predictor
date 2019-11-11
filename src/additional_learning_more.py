@@ -67,9 +67,9 @@ def female_transfer(cnn_f, Xf_train, Xf_test, yf_train, yf_test, model_num):
     cnn_f.save(saved_model_path)
 
 if __name__ == "__main__":
-    start = 13000
-    n = 15000
-    model_num=3
+    start = 4000
+    n = 8000
+    model_num=1
     print ('running {} data points.'.format(n-start))
     X_train, X_test, y_train, y_test = get_images(start,n)
     Xm_train, Xm_test, ym_train, ym_test, Xf_train, Xf_test, yf_train, yf_test = get_images(start,n, split=True)
