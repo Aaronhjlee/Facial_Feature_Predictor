@@ -110,5 +110,4 @@ venv.bak/
 data/
 saved_models/
 .DS_Store
-src/
 >>>>>>> individual
