@@ -59,7 +59,6 @@ def train_gender_model(X_train, X_test, y_train, y_test):
 
 def train_male_attraction_model(Xm_train, Xm_test, ym_train, ym_test):
     print('Training male attraction model! (might take a while)')
-    print('Training gender model! (might take a while)')
     cnn_m = Sequential()
     input_img = (218, 178, 3)
     batch_size=32
@@ -135,7 +134,7 @@ def train_female_attraction_model(Xf_train, Xf_test, yf_train, yf_test):
 
 if __name__ == "__main__":
     start = 0
-    n = 4000
+    n = 5000
     print ('running {} data points.'.format(n))
     X_train, X_test, y_train, y_test = get_images(start,n)
     Xm_train, Xm_test, ym_train, ym_test, Xf_train, Xf_test, yf_train, yf_test = get_images(start,n, split=True)

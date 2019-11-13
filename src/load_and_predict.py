@@ -41,10 +41,12 @@ def am_i_attractive(X, gender, cnn_m, cnn_f):
 
 
 if __name__ == "__main__":
-    n=31
-    model_num=3
+    n=1
+    model_num=1
     print('Image: {}  |  Model Number: {}'.format(n, model_num))
-    X = prep_size_new_data(n-1,n)
+    X, names = prep_size_new_data(n-1,n)
     cnn_g, cnn_m, cnn_f = load_models(model_num)
-    gender = gender_classifier(X, cnn_g)
-    am_i_attractive(X, gender, cnn_m, cnn_f)
+    for i in range(X.shape[0]):
+        print (names[i][14:])
+        gender = gender_classifier(X[i].reshape(1,218, 178,3), cnn_g)
+        am_i_attractive(X[i].reshape(1,218, 178,3), gender, cnn_m, cnn_f)
