@@ -54,7 +54,7 @@ def get_images(start, n, split=False):
     else:
         return male_female_split(full_images, df, start)
 
-def prep_size_new_data(start, n):
+def prep_size_new_data(photobooth=False):
     '''
     Converts picture and sizes for CNN
     Input: multiple images
@@ -63,14 +63,21 @@ def prep_size_new_data(start, n):
     subject_filenames = ['../data/batch/{}'.format(f) for f in listdir('../data/batch') if f != '.DS_Store']
     full_images = [cv2.imread(f)[...,::-1] for f in subject_filenames]
     img_list = np.asarray(full_images) / 255
-    X = []
-    for i in img_list:
-        X.append(cv2.resize(i, dsize=(178, 218)))
+    if photobooth == True:
+        pre = []
+        for i in img_list:
+            pre.append(i[:,250:830])
+        X = []
+        for i in pre:
+            X.append(cv2.resize(i, dsize=(178, 218)))
+    else:
+        X = []
+        for i in img_list:
+            X.append(cv2.resize(i, dsize=(178, 218)))
     return np.asarray(X), subject_filenames
-    
 
 if __name__ == "__main__":
     # X_train, X_test, y_train, y_test = get_images(5000,5050)
-    Xm_train, Xm_test, ym_train, ym_test, Xf_train, Xf_test, yf_train, yf_test = get_images(5000, 5050, split=True)
+    # Xm_train, Xm_test, ym_train, ym_test, Xf_train, Xf_test, yf_train, yf_test = get_images(5000, 5050, split=True)
     # X = prep_size_new_data(0,1)
     print ('it ran')

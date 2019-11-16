@@ -28,25 +28,29 @@ def load_models(model_num):
 
 def gender_classifier(X, cnn_g):
     pred = cnn_g.predict_proba(X)
-    print('By Western standards, the picture you submitted is {} a male. (scale: 0-1)'.format(pred[0][0]))
+    if pred[0][0]*100 > 50:
+        print('     MALE: {}%'.format(round(pred[0][0]*100,2)))
+    else:
+        print('     FEMALE: {}%'.format(round((1-pred[0][0])*100,2)))
     return cnn_g.predict_classes(X)[0][0]
 
 def am_i_attractive(X, gender, cnn_m, cnn_f):
     if gender == 1:
-        pred = cnn_m.predict(X)
-        print('By Western male standards, the picture you submitted is {} attractive (scale: 0-1)'.format(pred[0][0]))
+        pred = cnn_m.predict_proba(X)
+        print('     Photogenic MALE: {}%'.format(round(pred[0][0]*100,10)))
     else:
-        pred = cnn_f.predict(X)
-        print('By Western female standards, the picture you submitted is {} attractive (scale: 0-1)'.format(pred[0][0]))
+        pred = cnn_f.predict_proba(X)
+        print('     Photogenic FEMALE: {}%'.format(round(pred[0][0]*100,10)))
 
 
 if __name__ == "__main__":
     n=1
     model_num=1
-    print('Image: {}  |  Model Number: {}'.format(n, model_num))
-    X, names = prep_size_new_data(n-1,n)
+    # Use prep_size_new_data_PB if faces are not aligned already
+    X, names = prep_size_new_data(photobooth=True)
     cnn_g, cnn_m, cnn_f = load_models(model_num)
+    print('-------------')
     for i in range(X.shape[0]):
-        print (names[i][14:])
+        print ('{}'.format(names[i][14:]))
         gender = gender_classifier(X[i].reshape(1,218, 178,3), cnn_g)
         am_i_attractive(X[i].reshape(1,218, 178,3), gender, cnn_m, cnn_f)
