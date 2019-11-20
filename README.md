@@ -102,6 +102,11 @@ Once our architecture is set, we now train our models and come up with an accura
 
 ![](/images/all_train.png)
 
+Below is a dive into a small sample size of how our machine interpretted a couple different headshots. 
+
+![](images/example_1.png)
+![](images/example_2.png)
+
 With a small subset of data, we can achieve a fairly high training score. With more data coming in through [transfer learning](https://machinelearningmastery.com/transfer-learning-for-deep-learning/), we should have a better more that is not overfitting to the original training data.
 
 ## Transfer Learning
