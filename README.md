@@ -1,4 +1,4 @@
-<!-- ![](images/doodle_predictor_banner.png) -->
+![](images/gram_banner.png)
 
 # Facial_Feature_Predictor
 **Using headshots to predict gender and attractiveness**
@@ -13,7 +13,7 @@
   * [Question](#question)
 * [Strategy](#strategy)
 * [Exploratory Data Analysis](#exploratory-data-analysis)
-* [Machine Learning](#machine-learning)
+* [Feature Engineering](#feature-engineering)
 * [Deep Learning](#deep-learning)
 * [Trasfer Learning](#transfer-learning)
 * [Conclusion](#conclusion)
@@ -50,6 +50,10 @@ What facial features determine an attractive headshot?
 #### 5. Feature Importance 
 * Extract the filters to determine which features are important
 
+Below is the flow of information:
+
+![](images/CNN_arch.png)
+
 ## Exploratory Data Analysis
 
 ### Data Overview
@@ -66,7 +70,7 @@ What facial features determine an attractive headshot?
   4. Example headshots
 ![](images/female_example.png)    ![](images/male_example.png) 
 
-## Machine Learning
+## Feature Engineering
 
 Before we move forward, what is [machine learning](https://en.wikipedia.org/wiki/Machine_learning)? Machine learning is the act of having the computer learn something without being explicitly programmed to do so. This is the act of feeding the computer [labeled data](https://en.wikipedia.org/wiki/Labeled_data) so that it can learn the differences between data point to data point. 
 
@@ -92,6 +96,8 @@ Through many rounds of testing, similarly to VGG16's architecture, I went with a
 
 ![](images/gender_summary.png)
 
+![](images/model_summary.png)
+
 Once our architecture is set, we now train our models and come up with an accuracy and validation score over a set amount of [epochs](https://www.quora.com/What-is-an-epoch-in-deep-learning) for each corresponding model!
 
 ![](/images/all_train.png)
@@ -102,7 +108,7 @@ With a small subset of data, we can achieve a fairly high training score. With m
 
 Transfer learning is the act of taking a model with it's architecture and the weights already calculated and building on that in order to produce a model more tailored to a different dataset. 
 
-The model is currently training...
+In the future I plan to take a pretrained model (ie. VGG16, resnet) in order to easily identify features in a face and to predict the features.
 
 ## Conclusion
 
