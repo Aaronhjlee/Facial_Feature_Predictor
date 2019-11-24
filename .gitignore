@@ -111,3 +111,5 @@ data/
 saved_models/
 .DS_Store
 >>>>>>> individual
+
+deployment.pt2.ipynb

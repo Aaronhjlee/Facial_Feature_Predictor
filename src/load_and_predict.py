@@ -47,7 +47,7 @@ if __name__ == "__main__":
     n=1
     model_num=1
     # Use prep_size_new_data_PB if faces are not aligned already
-    X, names = prep_size_new_data(photobooth=True)
+    X, names = prep_size_new_data(photobooth=False)
     cnn_g, cnn_m, cnn_f = load_models(model_num)
     print('-------------')
     for i in range(X.shape[0]):
